@@ -12,7 +12,6 @@ import org.jxls.demo.guide.ObjectCollectionJavaAPIDemo;
 import org.jxls.demo.guide.ObjectCollectionXMLBuilderDemo;
 import org.jxls.demo.guide.ParameterizedFormulasDemo;
 import org.jxls.demo.reader.XlsReaderDemo;
-import org.jxls.util.TransformerFactory;
 
 /**
  * @author Leonid Vysochyn
@@ -51,31 +50,32 @@ public class MainDemo {
         XlsReaderDemo.main(args);
 
         MultiSheetMarkupDemo.main(args);
+        MultiSheetMarkupDemo2.main(args);
         JexlCustomFunctionDemo.main(args);
         CustomExpressionNotationDemo.main(args);
         ShiftStrategyDemo.main(args);
 
-        SqlDemo.main(args);
-
-        String transformerName = TransformerFactory.getTransformerName();
-
-        if( TransformerFactory.POI_TRANSFORMER.equals( transformerName ) ){
-            UserCommandExcelMarkupDemo.main(args);
-            UserCommandDemo.main(args);
-            AreaListenerDemo.main(args);
-            StressXlsxDemo.executeStress1();
-            StressXlsxDemo.executeStress2();
-            SxssfDemo.simpleSxssf();
-            SxssfDemo.executeStress1();
-            SxssfDemo.executeStress2();
-        }
-
-        if( TransformerFactory.JEXCEL_TRANSFORMER.equals( transformerName)){
-            JexcelAreaListenerDemo.main(args);
-            JexcelUserCommandExcelMarkupDemo.main(args);
-        }
-
-        StressDemo.executeStress1();
-        StressDemo.executeStress2();
+//        SqlDemo.main(args);
+//
+//        String transformerName = TransformerFactory.getTransformerName();
+//
+//        if( TransformerFactory.POI_TRANSFORMER.equals( transformerName ) ){
+//            UserCommandExcelMarkupDemo.main(args);
+//            UserCommandDemo.main(args);
+//            AreaListenerDemo.main(args);
+//            StressXlsxDemo.executeStress1();
+//            StressXlsxDemo.executeStress2();
+//            SxssfDemo.simpleSxssf();
+//            SxssfDemo.executeStress1();
+//            SxssfDemo.executeStress2();
+//        }
+//
+//        if( TransformerFactory.JEXCEL_TRANSFORMER.equals( transformerName)){
+//            JexcelAreaListenerDemo.main(args);
+//            JexcelUserCommandExcelMarkupDemo.main(args);
+//        }
+//
+//        StressDemo.executeStress1();
+//        StressDemo.executeStress2();
     }
 }
