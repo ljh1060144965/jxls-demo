@@ -2,6 +2,7 @@ package org.jxls.demo.guide;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -59,7 +60,7 @@ public class HighlightCellAreaListener implements AreaListener {
         newCellStyle.setFont( workbook.getFontAt( cellStyle.getFontIndex() ));
         newCellStyle.setFillBackgroundColor( cellStyle.getFillBackgroundColor());
         newCellStyle.setFillForegroundColor(IndexedColors.ORANGE.getIndex());
-        newCellStyle.setFillPattern(CellStyle.SOLID_FOREGROUND);
+        newCellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
         cell.setCellStyle(newCellStyle);
     }
 }

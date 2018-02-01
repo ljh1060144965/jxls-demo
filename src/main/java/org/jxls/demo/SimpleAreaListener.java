@@ -60,7 +60,7 @@ public class SimpleAreaListener implements AreaListener {
         newCellStyle.setFillBackgroundColor( cellStyle.getFillBackgroundColor());
         newCellStyle.setFillForegroundColor(IndexedColors.ORANGE.getIndex());
         //newCellStyle.setFillForegroundColor( cellStyle.getFillForegroundColor());
-        newCellStyle.setFillPattern(CellStyle.SOLID_FOREGROUND);
+        newCellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
         cell.setCellStyle(newCellStyle);
     }
 }
