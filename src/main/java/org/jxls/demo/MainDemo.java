@@ -56,6 +56,7 @@ public class MainDemo {
         CustomExpressionNotationDemo.main(args);
         ShiftStrategyDemo.main(args);
 
+        ShiftWithEmptyList.main(args);
         SqlDemo.main(args);
 
         String transformerName = TransformerFactory.getTransformerName();
