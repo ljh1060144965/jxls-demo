@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Sample Employee bean to demostrate simple export features
+ * Sample Employee bean to demonstrate simple export features
  * @author Leonid Vysochyn
  */
 public class Employee {
