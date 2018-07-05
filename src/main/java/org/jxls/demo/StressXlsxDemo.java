@@ -7,6 +7,8 @@ import org.jxls.common.CellRef;
 import org.jxls.common.Context;
 import org.jxls.demo.model.Department;
 import org.jxls.demo.model.Employee;
+import org.jxls.formula.FastFormulaProcessor;
+import org.jxls.formula.StandardFormulaProcessor;
 import org.jxls.transform.Transformer;
 import org.jxls.transform.poi.PoiContext;
 import org.jxls.transform.poi.PoiTransformer;
@@ -50,6 +52,7 @@ public class StressXlsxDemo {
                 context.putVar("employees", employees);
                 long startTime = System.nanoTime();
                 xlsArea.applyAt(new CellRef("Sheet2!A1"), context);
+                xlsArea.setFormulaProcessor(new FastFormulaProcessor());
                 xlsArea.processFormulas();
                 long endTime = System.nanoTime();
                 System.out.println("Stress Xlsx demo 1 time (s): " + (endTime - startTime) / 1000000000);
@@ -73,6 +76,7 @@ public class StressXlsxDemo {
                 context.putVar("departments", departments);
                 long startTime = System.nanoTime();
                 xlsArea.applyAt(new CellRef("Sheet2!A1"), context);
+                xlsArea.setFormulaProcessor(new FastFormulaProcessor());
                 xlsArea.processFormulas();
                 long endTime = System.nanoTime();
                 System.out.println("Stress Xlsx demo 2 time (s): " + (endTime - startTime) / 1000000000);
