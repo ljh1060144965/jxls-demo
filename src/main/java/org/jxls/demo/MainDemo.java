@@ -1,16 +1,6 @@
 package org.jxls.demo;
 
-import org.jxls.demo.guide.GroupingDemo;
-import org.jxls.demo.guide.HighlightDemo;
-import org.jxls.demo.guide.IfCommandDemo;
-import org.jxls.demo.guide.NestedCommandDemo;
-import org.jxls.demo.guide.NestedCommandJavaAPIDemo;
-import org.jxls.demo.guide.ObjectCollectionByColumnsDemo;
-import org.jxls.demo.guide.ObjectCollectionDemo;
-import org.jxls.demo.guide.ObjectCollectionFormulasDemo;
-import org.jxls.demo.guide.ObjectCollectionJavaAPIDemo;
-import org.jxls.demo.guide.ObjectCollectionXMLBuilderDemo;
-import org.jxls.demo.guide.ParameterizedFormulasDemo;
+import org.jxls.demo.guide.*;
 import org.jxls.demo.reader.XlsReaderDemo;
 import org.jxls.util.TransformerFactory;
 
@@ -31,6 +21,7 @@ public class MainDemo {
         HighlightDemo.main(args);
         IfCommandDemo.main(args);
         GroupingDemo.main(args);
+        MultiSheetDemo.main(args);
 
         EachIfCommandDemo.main(args);
         EachIfXmlBuilderDemo.main(args);
