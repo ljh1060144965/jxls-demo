@@ -43,3 +43,5 @@ List of examples
 28. *org.jxls.demo.FormulaCopyDemo*                       - Demonstrates usage of jx:params for formulas
 29. *org.jxls.demo.SqlDemo*                               - Sql statements in template demo
 30. *org.jxls.demo.MultiSheetMarkupDemo*                  - Multiple Sheet example demonstrating Excel markup usage
+31. *org.jxls.demo.guide.MultiSheetDemo*                  - Simple demo of using `multisheet` property sheetNames
+32. *org.jxls.demo.guide.MultiSheetPropertyExpressionDemo* - Simple demo of using an expression in `multisheet` property

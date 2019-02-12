@@ -22,6 +22,8 @@ public class MainDemo {
         IfCommandDemo.main(args);
         GroupingDemo.main(args);
         MultiSheetDemo.main(args);
+//      uncomment the next line when Jxls 2.5.0 is released
+//      MultiSheetPropertyExpressionDemo.main(args);
 
         EachIfCommandDemo.main(args);
         EachIfXmlBuilderDemo.main(args);
