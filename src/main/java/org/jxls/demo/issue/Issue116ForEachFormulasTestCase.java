@@ -33,7 +33,7 @@ public class Issue116ForEachFormulasTestCase
                 final JexlExpressionEvaluator evaluator = (JexlExpressionEvaluator) transformer.getTransformationConfig().getExpressionEvaluator();
                 Map<String, Object> jxlsMap = new HashMap<>();
                 jxlsMap.put("math", Math.class); // add Math utility functions
-                evaluator.getJexlEngine().setFunctions(jxlsMap);
+//                evaluator.getJexlEngine().setFunctions(jxlsMap);
                 jxlsHelper.processTemplate(context, transformer);
             }
         }

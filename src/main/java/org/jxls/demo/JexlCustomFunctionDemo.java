@@ -43,7 +43,7 @@ public class JexlCustomFunctionDemo {
                 JexlExpressionEvaluator evaluator = (JexlExpressionEvaluator) transformer.getTransformationConfig().getExpressionEvaluator();
                 Map<String, Object> functionMap = new HashMap<>();
                 functionMap.put("demo", new JexlCustomFunctionDemo());
-                evaluator.getJexlEngine().setFunctions(functionMap);
+//                evaluator.getJexlEngine().setFunctions(functionMap);
                 xlsArea.applyAt(new CellRef("Sheet1!A1"), context);
                 transformer.write();
             }
