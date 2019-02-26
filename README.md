@@ -1,6 +1,15 @@
 Jxls-2 Examples
 ===============
 
+NOTE!
+-----
+
+All the examples have been migrated to the [main Jxls repo](https://bitbucket.org/leonate/jxls/src/master/jxls-examples/).
+
+Please use that repo to get the latest examples code.
+
+This repo stays only for historical purpose!!!
+
 Overview
 --------
 This project contains examples of [Jxls](https://bitbucket.org/leonate/jxls) usage.
