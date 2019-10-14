@@ -1,8 +1,8 @@
-Jxls-2 Examples
-===============
+!!!Jxls-2 Examples - DEPRECATED!!!
+===============================
 
-NOTE!
------
+DEPRECATION NOTE!
+-----------------
 
 All the examples have been migrated to the [main Jxls repo](https://bitbucket.org/leonate/jxls/src/master/jxls-examples/).
 
