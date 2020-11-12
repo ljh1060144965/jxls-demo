@@ -35,9 +35,8 @@ public class MultiSheetMarkupDemo {
                 Context context = PoiTransformer.createInitialContext();
                 context.putVar("departments", departments);
                 context.putVar("sheetNames", Arrays.asList(
-                        departments.get(0).getName(),
-                        departments.get(1).getName(),
-                        departments.get(2).getName()));
+                        "kk",
+                        "dds"));
                 // with multi sheets it is better to use StandardFormulaProcessor by disabling the FastFormulaProcessor
                 JxlsHelper.getInstance().setUseFastFormulaProcessor(false).processTemplate(is, os, context);
             }

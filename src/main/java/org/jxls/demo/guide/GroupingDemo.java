@@ -12,6 +12,7 @@ import java.io.OutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -24,7 +25,11 @@ public class GroupingDemo {
         try(InputStream is = GroupingDemo.class.getResourceAsStream("grouping_template.xlsx")) {
             try (OutputStream os = new FileOutputStream("target/grouping_output.xlsx")) {
                 Context context = new Context();
+                HashMap<String, Object> map = new HashMap<>();
+                map.put("flag", "yes");
                 context.putVar("employees", employees);
+                context.putVar("map", map);
+//                context.putVar("employees", new ArrayList<>());
                 JxlsHelper.getInstance().processTemplate(is, os, context);
             }
         }

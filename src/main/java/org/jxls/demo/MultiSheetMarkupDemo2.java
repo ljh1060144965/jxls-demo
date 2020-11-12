@@ -34,6 +34,10 @@ public class MultiSheetMarkupDemo2 {
             try (OutputStream os = new FileOutputStream(output)) {
                 Context context = PoiTransformer.createInitialContext();
                 context.putVar("departments", departments);
+                // jx:each(items="departments", var="department", lastCell="G10" multisheet="sheetNames") multisheet代表分的多sheet的名称集合，
+                // 每个department分一个sheet显示，然后可以在department内部申明一个List<Employee>装每个sheet里显示的数据集
+                // 这个sheetNames参数：按照你department集合分好的组的顺序显示在不同sheetNames中，并不是根据你的sheetNames智能分sheet，sheetNames乱写都行，
+                // 但一般都是根据你的department集合中某个标志性字段进行组合成一个集合
                 context.putVar("sheetNames", Arrays.asList(
                         departments.get(0).getName(),
                         departments.get(1).getName(),

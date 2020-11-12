@@ -6,7 +6,7 @@ import java.util.Date;
 /**
  * @author Leonid Vysochyn
  */
-public class Employee {
+public class  Employee {
     private String name;
     private Date birthDate;
     private BigDecimal payment;

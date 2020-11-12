@@ -25,6 +25,8 @@ public class NestedCommandDemo {
     public static void main(String[] args) throws ParseException, IOException {
         logger.info("Running Nested Command demo");
         List<Employee> employees = generateSampleEmployeeData();
+        // jx:if(condition="employee.payment <= 2000" lastCell="D4" areas=["A6:D6", "A4:D4"])
+        // areas=["A6:D6", "A4:D4"]意思为：满足条件显示A6到D6区域，反之则显示A4到D4区域
         try(InputStream is = NestedCommandDemo.class.getResourceAsStream("nested_command_template.xls")) {
             try(OutputStream os = new FileOutputStream("target/nested_command_output.xls")) {
                 Context context = new Context();
