@@ -1,19 +1,22 @@
 package org.jxls.demo.util;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.jxls.area.Area;
+import org.jxls.area.XlsArea;
 import org.jxls.builder.AreaBuilder;
 import org.jxls.common.CellRef;
 import org.jxls.common.Context;
 import org.jxls.formula.FastFormulaProcessor;
 import org.jxls.formula.FormulaProcessor;
 import org.jxls.formula.StandardFormulaProcessor;
-import org.jxls.transform.Transformer;
 import org.jxls.transform.poi.PoiTransformer;
+import org.jxls.util.CellRefUtil;
 import org.jxls.util.JxlsHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,6 +48,11 @@ import java.util.Map;
 public class JxlsUtils {
 
     private static final Logger LOG = LoggerFactory.getLogger(JxlsUtils.class);
+
+    private static final String DELIMITER1 = "!";
+    private static final String DELIMITER2 = ":";
+    /** 表单第一个单元格位置 **/
+    private static final String A1 = "A1";
 
     /**
      * excel生成（用于直接生成excel文件，不需要二次加工处理Workbook）
@@ -138,16 +146,22 @@ public class JxlsUtils {
             throws IOException, InvalidFormatException {
         Context context = getContext(beanParams);
         PoiTransformer transformer = PoiTransformer.createTransformer(is);
-        processTemplate(context, transformer);
 
-        return transformer.getWorkbook();
+        return processTemplate(context, transformer);
     }
 
-    public static void processTemplate(Context context, Transformer transformer) {
+    public static Workbook processTemplate(Context context, PoiTransformer transformer) {
         JxlsHelper jxlsHelper = JxlsHelper.getInstance().setUseFastFormulaProcessor(false);
         AreaBuilder areaBuilder = jxlsHelper.getAreaBuilder();
         areaBuilder.setTransformer(transformer);
         List<Area> xlsAreaList = areaBuilder.build();
+        // 修复非首次构建无效问题
+        // 由于当前使用的是基于excel注释模式构建的，每次构建完，注释就会被清除，后续再次构建时就会无注释，导致构建无效，
+        if (CollectionUtils.isEmpty(xlsAreaList)) {
+            XlsArea xlsArea = getXlsArea(transformer);
+            xlsAreaList.add(xlsArea);
+        }
+
         for (Area xlsArea : xlsAreaList) {
             xlsArea.applyAt(new CellRef(xlsArea.getStartCellRef().getCellName()), context);
         }
@@ -166,9 +180,41 @@ public class JxlsUtils {
                 xlsArea.processFormulas();
             }
         }
+
+        return transformer.getWorkbook();
     }
 
-    private static File getTemplate(String path){
+    private static XlsArea getXlsArea(PoiTransformer transformer) {
+        Sheet sheet = transformer.getWorkbook().getSheetAt(0);
+        // 表格区域的最后一行行号，从0开始
+        int lastRowNum = sheet.getLastRowNum();
+        // 表格区域的最后一列列号，从0开始(要注意下有时候area写多了，这里获取的列会变成-1，可以后续判断小于0，则赋值个50)
+        int lastCellNum = sheet.getRow(lastRowNum).getLastCellNum() - 1;
+        String sheetName = sheet.getSheetName();
+
+        if (lastCellNum < 0) {
+            lastCellNum = 50;
+        }
+
+        // 如：Template!A1:D4
+        String areaRef = StringUtils.join(sheetName, DELIMITER1, A1, DELIMITER2,
+                getCellReference(lastCellNum, lastRowNum));
+        return new XlsArea(areaRef, transformer);
+    }
+
+    /**
+     * 获取单元格位置（例如：输入 0,0，输出A1）
+     *
+     * @param column 从0开始
+     * @param row 从0开始
+     * @return
+     */
+    public static String getCellReference(int column, int row) {
+        int realRow = row + 1;
+        return StringUtils.join(CellRefUtil.convertNumToColString(column), realRow);
+    }
+
+    private static File getTemplate(String path) {
         File template = new File(path);
         if(!template.exists()){
             throw new RuntimeException(

@@ -1,15 +1,18 @@
 package org.jxls.demo.guide;
 
+import jxl.CellReferenceHelper;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.util.CellRangeAddress;
-import org.jxls.common.Context;
+import org.apache.poi.ss.util.CellReference;
 import org.jxls.demo.util.JxlsUtils;
-import org.jxls.util.JxlsHelper;
+import org.jxls.util.CellRefUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,37 +26,24 @@ import java.util.Locale;
 import java.util.Map;
 
 /**
- * Object collection output demo
+ * 第一次build玩表格后，会将表格的注释comment清除掉，就会导致二次读取build时会导致找不到area的注释comment，无法进行二次build，
+ * 所以二次读取时需手动编码设置area域和相关jxls表达式
+ *
  * @author Leonid Vysochyn
  */
-public class ObjectCollectionDemo {
-    private static Logger logger = LoggerFactory.getLogger(ObjectCollectionDemo.class);
+public class SecondTimeBuildDemo {
+    private static Logger logger = LoggerFactory.getLogger(SecondTimeBuildDemo.class);
 
     public static void main(String[] args) throws ParseException, IOException, InvalidFormatException {
         logger.info("Running Object Collection demo");
         List<Employee> employees = generateSampleEmployeeData();
-        try(InputStream is = ObjectCollectionDemo.class.getResourceAsStream("object_collection_template.xls")) {
-            try (OutputStream os = new FileOutputStream("target/object_collection_output22222.xls")) {
+        try(
+                InputStream is = SecondTimeBuildDemo.class.getResourceAsStream("secondtime_build_template.xls")
+        ) {
+            try (OutputStream os = new FileOutputStream("target/secondtime_build_template33333.xls")) {
                 Map<String, Object> context = new HashMap<>();
-                context.put("employees", employees);
-                context.put("time1", "${time1}");
-                context.put("time2", "2020-05-12");
+                context.put("time1", "2020-05-02多次build112");
                 Workbook workbook = JxlsUtils.buildExcel(is, context);
-                Sheet sheet = workbook.getSheetAt(0);
-                // 行从0开始
-                int lastRowNum = sheet.getLastRowNum();
-                // 列从1开始
-                short lastCellNum = sheet.getRow(lastRowNum).getLastCellNum();
-                logger.info("lastRowNum:{} lastCellNum:{}", lastRowNum, lastCellNum);
-                //第一个参数为合并起始行，从0开始
-                //第二个参数为合并终止行，从0开始
-                //第二个参数为合并起始列，从0开始
-                //第二个参数为合并终止列，从0开始
-                //例子中是合并第一行的1列---8列
-//                CellRangeAddress region = new CellRangeAddress(0, 0, 0, 7);
-//                CellRangeAddress region = new CellRangeAddress(3, 4, 0, 0);
-//                sheet.addMergedRegion(region);
-//                sheet.getRow(5).setHeightInPoints(32.5f);
                 workbook.write(os);
             }
         }
